@@ -1,0 +1,1804 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Break & Brunch – Waffeln, Snacks & Drinks | Rüsselsheim</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400;1,700&family=DM+Sans:wght@300;400;500&family=Bebas+Neue&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --cream: #F5F0E8;
+    --warm-white: #FDFAF4;
+    --charcoal: #1A1814;
+    --espresso: #2C2518;
+    --gold: #C9A84C;
+    --gold-light: #E8C97A;
+    --rust: #B85C2A;
+    --rust-light: #D4763E;
+    --sage: #7A8C6E;
+    --sand: #D4C4A0;
+    --text-muted: #7A7060;
+    --font-display: 'Bebas Neue', sans-serif;
+    --font-serif: 'Playfair Display', serif;
+    --font-body: 'DM Sans', sans-serif;
+  }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: var(--font-body);
+    background: var(--charcoal);
+    color: var(--cream);
+    overflow-x: hidden;
+    cursor: none;
+  }
+
+  /* Custom cursor */
+  .cursor {
+    width: 12px; height: 12px;
+    background: var(--gold);
+    border-radius: 50%;
+    position: fixed;
+    top: 0; left: 0;
+    pointer-events: none;
+    z-index: 9999;
+    transition: transform 0.15s ease, background 0.2s;
+    mix-blend-mode: normal;
+  }
+  .cursor-ring {
+    width: 36px; height: 36px;
+    border: 1.5px solid var(--gold);
+    border-radius: 50%;
+    position: fixed;
+    top: 0; left: 0;
+    pointer-events: none;
+    z-index: 9998;
+    transition: transform 0.4s cubic-bezier(0.23,1,0.32,1);
+    opacity: 0.6;
+  }
+
+  /* NAV */
+  nav {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    z-index: 100;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1.5rem 3rem;
+    transition: background 0.4s, backdrop-filter 0.4s;
+  }
+  nav.scrolled {
+    background: rgba(26,24,20,0.92);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid rgba(201,168,76,0.15);
+  }
+  .nav-logo {
+    font-family: var(--font-display);
+    font-size: 2rem;
+    letter-spacing: 4px;
+    color: var(--gold);
+    text-decoration: none;
+  }
+  .nav-links { display: flex; gap: 2.5rem; list-style: none; }
+  .nav-links a {
+    font-size: 0.8rem;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: var(--cream);
+    text-decoration: none;
+    opacity: 0.7;
+    transition: opacity 0.2s, color 0.2s;
+  }
+  .nav-links a:hover { opacity: 1; color: var(--gold); }
+
+  /* HERO */
+  .hero {
+    height: 100vh;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    position: relative;
+    overflow: hidden;
+  }
+  .hero-left {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 8rem 4rem 4rem 5rem;
+    position: relative;
+    z-index: 2;
+  }
+  .hero-eyebrow {
+    font-family: var(--font-body);
+    font-size: 0.7rem;
+    letter-spacing: 5px;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 1.5rem;
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+  }
+  .hero-eyebrow::before {
+    content: '';
+    display: block;
+    width: 40px;
+    height: 1px;
+    background: var(--gold);
+  }
+  .hero-title {
+    font-family: var(--font-display);
+    font-size: clamp(5rem, 10vw, 9rem);
+    line-height: 0.9;
+    letter-spacing: 2px;
+    color: var(--warm-white);
+    margin-bottom: 1rem;
+  }
+  .hero-title span { color: var(--gold); }
+  .hero-subtitle {
+    font-family: var(--font-serif);
+    font-style: italic;
+    font-size: 1.3rem;
+    color: var(--sand);
+    margin-bottom: 2.5rem;
+    max-width: 380px;
+  }
+  .hero-ctas { display: flex; gap: 1rem; flex-wrap: wrap; }
+  .btn-primary {
+    padding: 1rem 2.5rem;
+    background: var(--gold);
+    color: var(--charcoal);
+    font-family: var(--font-body);
+    font-size: 0.75rem;
+    font-weight: 500;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    text-decoration: none;
+    border: none;
+    cursor: none;
+    transition: background 0.2s, transform 0.2s;
+    display: inline-block;
+  }
+  .btn-primary:hover { background: var(--gold-light); transform: translateY(-2px); }
+  .btn-outline {
+    padding: 1rem 2.5rem;
+    background: transparent;
+    color: var(--cream);
+    font-family: var(--font-body);
+    font-size: 0.75rem;
+    font-weight: 500;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    text-decoration: none;
+    border: 1px solid rgba(245,240,232,0.4);
+    cursor: none;
+    transition: border-color 0.2s, color 0.2s, transform 0.2s;
+    display: inline-block;
+  }
+  .btn-outline:hover { border-color: var(--gold); color: var(--gold); transform: translateY(-2px); }
+
+  .hero-right {
+    position: relative;
+    overflow: hidden;
+  }
+  .hero-img-bg {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(135deg, #3d2c1a 0%, #1a1208 100%);
+  }
+  .hero-waffle-visual {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+  }
+  /* Giant decorative circle */
+  .hero-circle {
+    width: 480px; height: 480px;
+    border-radius: 50%;
+    background: radial-gradient(circle at 40% 40%, #4a3020, #1a0e08);
+    border: 1px solid rgba(201,168,76,0.2);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    animation: slowspin 30s linear infinite;
+  }
+  @keyframes slowspin {
+    from { transform: rotate(0deg); }
+    to { transform: rotate(360deg); }
+  }
+  .hero-circle-inner {
+    width: 380px; height: 380px;
+    border-radius: 50%;
+    background: radial-gradient(circle at 35% 35%, #5a3c25, #2a1a0a);
+    border: 1px solid rgba(201,168,76,0.3);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    animation: slowspin 30s linear infinite reverse;
+  }
+  .waffle-emoji-big {
+    font-size: 8rem;
+    animation: slowspin 30s linear infinite;
+    filter: drop-shadow(0 0 30px rgba(201,168,76,0.4));
+  }
+  .hero-food-img {
+    width: 320px;
+    height: 320px;
+    object-fit: cover;
+    border-radius: 50%;
+    animation: slowspin 30s linear infinite;
+    filter: drop-shadow(0 0 30px rgba(201,168,76,0.5));
+    border: 3px solid rgba(201,168,76,0.4);
+  }
+  /* Orbiting tags */
+  .orbit-tag {
+    position: absolute;
+    background: var(--espresso);
+    border: 1px solid rgba(201,168,76,0.4);
+    padding: 0.5rem 1rem;
+    font-size: 0.65rem;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--gold);
+    white-space: nowrap;
+    animation: none;
+  }
+  .orbit-tag:nth-child(2) { top: 15%; left: 5%; }
+  .orbit-tag:nth-child(3) { top: 25%; right: 5%; }
+  .orbit-tag:nth-child(4) { bottom: 20%; left: 10%; }
+  .orbit-tag:nth-child(5) { bottom: 30%; right: 8%; }
+
+  .hero-scroll {
+    position: absolute;
+    bottom: 3rem;
+    left: 5rem;
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    font-size: 0.65rem;
+    letter-spacing: 4px;
+    text-transform: uppercase;
+    color: var(--text-muted);
+    z-index: 3;
+  }
+  .scroll-line {
+    width: 50px; height: 1px;
+    background: var(--text-muted);
+    position: relative;
+    overflow: hidden;
+  }
+  .scroll-line::after {
+    content: '';
+    position: absolute;
+    top: 0; left: -100%;
+    width: 100%; height: 100%;
+    background: var(--gold);
+    animation: scrollline 2s ease infinite;
+  }
+  @keyframes scrollline {
+    0% { left: -100%; }
+    100% { left: 100%; }
+  }
+
+  /* Diagonal divider */
+  .diagonal-divider {
+    position: absolute;
+    top: 0; left: 50%;
+    width: 60px; height: 100%;
+    background: var(--charcoal);
+    transform: skewX(-3deg);
+    z-index: 3;
+  }
+
+  /* ABOUT STRIP */
+  .about-strip {
+    background: var(--gold);
+    padding: 1.2rem 5rem;
+    display: flex;
+    gap: 4rem;
+    overflow: hidden;
+  }
+  .about-strip-item {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    flex-shrink: 0;
+    color: var(--charcoal);
+  }
+  .strip-icon { font-size: 1.2rem; }
+  .strip-text {
+    font-size: 0.75rem;
+    font-weight: 500;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+  }
+  .strip-separator { color: rgba(26,24,20,0.3); font-size: 1.5rem; }
+
+  /* SECTIONS */
+  section { padding: 7rem 5rem; }
+  .section-label {
+    font-size: 0.65rem;
+    letter-spacing: 5px;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 1rem;
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+  }
+  .section-label::before {
+    content: '';
+    width: 30px; height: 1px;
+    background: var(--gold);
+  }
+  .section-title {
+    font-family: var(--font-display);
+    font-size: clamp(3rem, 6vw, 5.5rem);
+    letter-spacing: 2px;
+    line-height: 1;
+    color: var(--warm-white);
+    margin-bottom: 1.5rem;
+  }
+  .section-title em {
+    font-family: var(--font-serif);
+    font-style: italic;
+    font-weight: 400;
+    color: var(--gold);
+  }
+  .section-intro {
+    font-size: 1rem;
+    line-height: 1.8;
+    color: var(--sand);
+    max-width: 500px;
+    margin-bottom: 3rem;
+  }
+
+  /* MENU */
+  .menu-section { background: var(--espresso); }
+  .menu-tabs {
+    display: flex;
+    gap: 0;
+    margin-bottom: 4rem;
+    border-bottom: 1px solid rgba(245,240,232,0.1);
+  }
+  .menu-tab {
+    padding: 1rem 2rem;
+    font-size: 0.72rem;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: var(--text-muted);
+    cursor: none;
+    border: none;
+    background: none;
+    border-bottom: 2px solid transparent;
+    margin-bottom: -1px;
+    transition: color 0.2s, border-color 0.2s;
+    font-family: var(--font-body);
+  }
+  .menu-tab:hover { color: var(--cream); }
+  .menu-tab.active { color: var(--gold); border-bottom-color: var(--gold); }
+
+  .menu-panel { display: none; }
+  .menu-panel.active { display: block; }
+
+  .menu-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1.5px;
+    background: rgba(245,240,232,0.06);
+  }
+  .menu-item {
+    background: var(--espresso);
+    padding: 1.8rem 2rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 1rem;
+    transition: background 0.2s;
+    position: relative;
+    overflow: hidden;
+  }
+  .menu-item::before {
+    content: '';
+    position: absolute;
+    left: 0; top: 0; bottom: 0;
+    width: 0;
+    background: rgba(201,168,76,0.08);
+    transition: width 0.3s ease;
+  }
+  .menu-item:hover::before { width: 100%; }
+  .menu-item:hover { background: #33291a; }
+  .item-left { flex: 1; }
+  .item-name {
+    font-family: var(--font-body);
+    font-size: 0.9rem;
+    font-weight: 500;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    color: var(--warm-white);
+    margin-bottom: 0.4rem;
+  }
+  .item-desc {
+    font-size: 0.8rem;
+    color: var(--text-muted);
+    line-height: 1.6;
+    font-style: italic;
+  }
+  .item-price {
+    font-family: var(--font-display);
+    font-size: 1.4rem;
+    letter-spacing: 1px;
+    color: var(--gold);
+    white-space: nowrap;
+    flex-shrink: 0;
+  }
+  .menu-section-header {
+    grid-column: 1 / -1;
+    padding: 1.5rem 2rem 0.5rem;
+    font-family: var(--font-serif);
+    font-size: 1.1rem;
+    font-style: italic;
+    color: var(--rust-light);
+    background: var(--espresso);
+    border-bottom: 1px solid rgba(245,240,232,0.06);
+  }
+
+  /* DRINKS SECTION */
+  .drinks-section { background: #0f0d0a; }
+  .drinks-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 2rem;
+    margin-top: 3rem;
+  }
+  .drinks-category {
+    border: 1px solid rgba(201,168,76,0.15);
+    padding: 2rem;
+    position: relative;
+    overflow: hidden;
+    transition: border-color 0.3s;
+  }
+  .drinks-category:hover { border-color: rgba(201,168,76,0.4); }
+  .drinks-category::after {
+    content: '';
+    position: absolute;
+    bottom: 0; left: 0; right: 0;
+    height: 2px;
+    background: linear-gradient(90deg, transparent, var(--gold), transparent);
+    transform: scaleX(0);
+    transition: transform 0.4s;
+  }
+  .drinks-category:hover::after { transform: scaleX(1); }
+  .cat-title {
+    font-family: var(--font-display);
+    font-size: 1.6rem;
+    letter-spacing: 3px;
+    color: var(--gold);
+    margin-bottom: 1.5rem;
+    padding-bottom: 1rem;
+    border-bottom: 1px solid rgba(201,168,76,0.2);
+  }
+  .drink-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    padding: 0.6rem 0;
+    border-bottom: 1px solid rgba(245,240,232,0.04);
+  }
+  .drink-row:last-child { border-bottom: none; }
+  .drink-name {
+    font-size: 0.82rem;
+    letter-spacing: 1px;
+    color: var(--cream);
+  }
+  .drink-detail {
+    font-size: 0.7rem;
+    color: var(--text-muted);
+    margin-left: 0.4rem;
+  }
+  .drink-price {
+    font-family: var(--font-display);
+    font-size: 1.1rem;
+    color: var(--gold);
+    letter-spacing: 1px;
+  }
+
+  /* FEATURE STRIP */
+  .feature-strip {
+    background: var(--rust);
+    padding: 5rem;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 4rem;
+    align-items: center;
+  }
+  .feature-text .section-label { color: rgba(255,255,255,0.7); }
+  .feature-text .section-label::before { background: rgba(255,255,255,0.5); }
+  .feature-text .section-title { color: white; }
+  .feature-text .section-title em { color: var(--gold-light); }
+  .feature-text .section-intro { color: rgba(255,255,255,0.7); }
+  .feature-stats {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 2rem;
+  }
+  .stat-block { border-left: 2px solid rgba(255,255,255,0.3); padding-left: 1.5rem; }
+  .stat-number {
+    font-family: var(--font-display);
+    font-size: 3.5rem;
+    letter-spacing: 2px;
+    color: white;
+    line-height: 1;
+  }
+  .stat-label {
+    font-size: 0.72rem;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: rgba(255,255,255,0.6);
+    margin-top: 0.3rem;
+  }
+
+  /* GALLERY SECTION */
+  .gallery-section { background: var(--charcoal); padding: 5rem; }
+  .gallery-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    margin-bottom: 3rem;
+  }
+  .gallery-grid {
+    display: grid;
+    grid-template-columns: 2fr 1fr 1fr;
+    grid-template-rows: 300px 200px;
+    gap: 0.75rem;
+  }
+  .gallery-cell {
+    overflow: hidden;
+    position: relative;
+    background: #2a1e12;
+  }
+  .gallery-cell:first-child { grid-row: 1 / 3; }
+  .gallery-emoji {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 5rem;
+    opacity: 0.3;
+    transition: transform 0.5s ease, opacity 0.3s;
+  }
+  .gallery-cell:hover .gallery-emoji { transform: scale(1.1); opacity: 0.5; }
+
+  /* Real photo support */
+  .gallery-img {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.6s ease;
+    display: block;
+  }
+  .gallery-cell:hover .gallery-img { transform: scale(1.06); }
+  .gallery-overlay {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(to top, rgba(26,24,20,0.8) 0%, transparent 60%);
+    opacity: 0;
+    transition: opacity 0.3s;
+    display: flex;
+    align-items: flex-end;
+    padding: 1.5rem;
+  }
+  .gallery-cell:hover .gallery-overlay { opacity: 1; }
+  .gallery-label {
+    font-size: 0.75rem;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--gold);
+  }
+
+  /* CONTACT / LOCATION */
+  .contact-section {
+    background: var(--espresso);
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0;
+    padding: 0;
+  }
+  .contact-left {
+    padding: 7rem 5rem;
+    background: var(--espresso);
+  }
+  .contact-right {
+    background: var(--charcoal);
+    padding: 7rem 5rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+  .contact-item {
+    display: flex;
+    gap: 1.5rem;
+    margin-bottom: 2.5rem;
+    align-items: flex-start;
+  }
+  .contact-icon {
+    width: 44px; height: 44px;
+    border: 1px solid rgba(201,168,76,0.3);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.1rem;
+    flex-shrink: 0;
+    color: var(--gold);
+  }
+  .contact-info-title {
+    font-size: 0.65rem;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: var(--text-muted);
+    margin-bottom: 0.3rem;
+  }
+  .contact-info-detail {
+    font-size: 0.95rem;
+    color: var(--cream);
+    line-height: 1.6;
+  }
+  .map-placeholder {
+    background: #1a1208;
+    border: 1px solid rgba(201,168,76,0.15);
+    border-radius: 0;
+    height: 300px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    gap: 1rem;
+    margin-top: 2rem;
+    font-size: 3rem;
+  }
+  .map-placeholder p {
+    font-size: 0.75rem;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--text-muted);
+  }
+  .facebook-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.75rem;
+    padding: 1rem 2rem;
+    background: transparent;
+    border: 1px solid rgba(201,168,76,0.4);
+    color: var(--gold);
+    text-decoration: none;
+    font-size: 0.75rem;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    margin-top: 2rem;
+    transition: background 0.2s, color 0.2s;
+    cursor: none;
+  }
+  .facebook-link:hover { background: var(--gold); color: var(--charcoal); }
+
+  /* HOURS VISUAL */
+  .hours-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 0;
+    margin-top: 1rem;
+  }
+  .hour-row {
+    display: flex;
+    justify-content: space-between;
+    padding: 0.9rem 0;
+    border-bottom: 1px solid rgba(245,240,232,0.07);
+    font-size: 0.85rem;
+  }
+  .hour-row:last-child { border-bottom: none; }
+  .hour-day { color: var(--sand); letter-spacing: 1px; }
+  .hour-time { color: var(--gold); font-family: var(--font-display); font-size: 1rem; letter-spacing: 1px; }
+  .hour-row.today .hour-day { color: var(--gold); font-weight: 500; }
+  .hour-row.today .hour-time { color: var(--gold-light); }
+
+  /* FOOTER */
+  footer {
+    background: #0a0906;
+    padding: 3rem 5rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-top: 1px solid rgba(201,168,76,0.1);
+  }
+  .footer-logo {
+    font-family: var(--font-display);
+    font-size: 2rem;
+    letter-spacing: 4px;
+    color: var(--gold);
+  }
+  .footer-tagline {
+    font-family: var(--font-serif);
+    font-style: italic;
+    color: var(--text-muted);
+    font-size: 0.9rem;
+    margin-top: 0.3rem;
+  }
+  .footer-copy {
+    font-size: 0.7rem;
+    letter-spacing: 2px;
+    color: var(--text-muted);
+    text-transform: uppercase;
+  }
+
+  /* FLOATING ELEMENTS */
+  .gold-dot {
+    width: 6px; height: 6px;
+    background: var(--gold);
+    border-radius: 50%;
+    display: inline-block;
+  }
+
+  /* ANIMATIONS */
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(30px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+  .fade-up {
+    opacity: 0;
+    animation: fadeUp 0.8s ease forwards;
+  }
+  .fade-up:nth-child(1) { animation-delay: 0.1s; }
+  .fade-up:nth-child(2) { animation-delay: 0.25s; }
+  .fade-up:nth-child(3) { animation-delay: 0.4s; }
+
+  /* Ticker */
+  .ticker {
+    background: #0a0906;
+    padding: 0.9rem 0;
+    overflow: hidden;
+    border-top: 1px solid rgba(201,168,76,0.1);
+    border-bottom: 1px solid rgba(201,168,76,0.1);
+  }
+  .ticker-inner {
+    display: flex;
+    gap: 4rem;
+    animation: ticker 25s linear infinite;
+    white-space: nowrap;
+    width: max-content;
+  }
+  @keyframes ticker {
+    from { transform: translateX(0); }
+    to { transform: translateX(-50%); }
+  }
+  .ticker-item {
+    font-family: var(--font-serif);
+    font-style: italic;
+    font-size: 0.85rem;
+    color: var(--text-muted);
+    display: flex;
+    align-items: center;
+    gap: 2rem;
+  }
+  .ticker-item .gold-dot { margin: 0; }
+
+  /* Responsive basics */
+  @media (max-width: 900px) {
+    .hero { grid-template-columns: 1fr; height: auto; min-height: 100vh; }
+    .hero-right { height: 300px; }
+    .diagonal-divider { display: none; }
+    section { padding: 4rem 1.5rem; }
+    nav { padding: 1rem 1.5rem; }
+    .nav-links { display: none; }
+    .menu-grid { grid-template-columns: 1fr; }
+    .drinks-grid { grid-template-columns: 1fr; }
+    .feature-strip { grid-template-columns: 1fr; }
+    .contact-section { grid-template-columns: 1fr; }
+    .gallery-grid { grid-template-columns: 1fr 1fr; grid-template-rows: auto; }
+    .gallery-cell:first-child { grid-row: auto; }
+    footer { flex-direction: column; gap: 1rem; text-align: center; }
+    .about-strip { padding: 1rem; gap: 2rem; }
+  }
+
+  /* ── RESERVATION MODAL ── */
+  .modal-backdrop {
+    display: none;
+    position: fixed;
+    inset: 0;
+    background: rgba(10,9,6,0.88);
+    z-index: 500;
+    align-items: center;
+    justify-content: center;
+    backdrop-filter: blur(6px);
+  }
+  .modal-backdrop.open { display: flex; }
+  .modal {
+    background: var(--espresso);
+    border: 1px solid rgba(201,168,76,0.3);
+    width: 100%;
+    max-width: 540px;
+    margin: 1rem;
+    padding: 3rem;
+    position: relative;
+    animation: fadeUp 0.4s ease;
+    max-height: 90vh;
+    overflow-y: auto;
+  }
+  .modal-close {
+    position: absolute;
+    top: 1.2rem; right: 1.5rem;
+    background: none;
+    border: none;
+    color: var(--text-muted);
+    font-size: 1.4rem;
+    cursor: pointer;
+    transition: color 0.2s;
+    line-height: 1;
+  }
+  .modal-close:hover { color: var(--gold); }
+  .modal-eyebrow {
+    font-size: 0.62rem;
+    letter-spacing: 4px;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 0.6rem;
+    display: block;
+  }
+  .modal-heading {
+    font-family: var(--font-display);
+    font-size: 3rem;
+    letter-spacing: 2px;
+    color: var(--warm-white);
+    margin-bottom: 2rem;
+    line-height: 1;
+  }
+  .modal-heading span { color: var(--gold); }
+  .form-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1rem;
+  }
+  .form-group {
+    display: flex;
+    flex-direction: column;
+    gap: 0.4rem;
+    margin-bottom: 1rem;
+  }
+  .form-group label {
+    font-size: 0.62rem;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: var(--text-muted);
+  }
+  .form-group input,
+  .form-group select,
+  .form-group textarea {
+    background: rgba(255,255,255,0.05);
+    border: 1px solid rgba(201,168,76,0.2);
+    border-radius: 0;
+    padding: 0.85rem 1rem;
+    color: var(--cream);
+    font-family: var(--font-body);
+    font-size: 0.9rem;
+    outline: none;
+    width: 100%;
+    -webkit-appearance: none;
+    appearance: none;
+    transition: border-color 0.2s;
+  }
+  .form-group input:focus,
+  .form-group select:focus,
+  .form-group textarea:focus { border-color: var(--gold); }
+  .form-group select { background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%23C9A84C' stroke-width='1.5' fill='none'/%3E%3C/svg%3E"); background-repeat: no-repeat; background-position: right 1rem center; padding-right: 2.5rem; }
+  .form-group select option { background: #2C2518; color: #F5F0E8; }
+  .form-group textarea { resize: vertical; min-height: 80px; }
+  .form-divider {
+    height: 1px;
+    background: rgba(201,168,76,0.12);
+    margin: 0.5rem 0 1.5rem;
+  }
+  .form-submit {
+    width: 100%;
+    padding: 1.1rem;
+    background: var(--gold);
+    color: var(--charcoal);
+    font-family: var(--font-body);
+    font-size: 0.78rem;
+    font-weight: 500;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    border: none;
+    cursor: pointer;
+    transition: background 0.2s, transform 0.15s;
+    margin-top: 0.5rem;
+  }
+  .form-submit:hover { background: var(--gold-light); transform: translateY(-1px); }
+  .form-note {
+    font-size: 0.68rem;
+    color: var(--text-muted);
+    margin-top: 1rem;
+    font-style: italic;
+    text-align: center;
+    line-height: 1.6;
+  }
+  .modal-success {
+    display: none;
+    text-align: center;
+    padding: 2rem 0;
+  }
+  .modal-success.show { display: block; }
+  .success-icon { font-size: 2.5rem; margin-bottom: 1rem; color: var(--gold); }
+  .success-title {
+    font-family: var(--font-display);
+    font-size: 2.2rem;
+    letter-spacing: 2px;
+    color: var(--gold);
+    margin-bottom: 0.8rem;
+  }
+  .success-msg { color: var(--sand); font-size: 0.9rem; line-height: 1.8; }
+  .success-close-btn {
+    margin-top: 1.5rem;
+    padding: 0.85rem 2rem;
+    background: transparent;
+    border: 1px solid rgba(201,168,76,0.4);
+    color: var(--gold);
+    font-family: var(--font-body);
+    font-size: 0.72rem;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    cursor: pointer;
+    transition: background 0.2s, color 0.2s;
+  }
+  .success-close-btn:hover { background: var(--gold); color: var(--charcoal); }
+
+  /* Floating action button */
+  .fab-reserve {
+    position: fixed;
+    bottom: 2rem;
+    right: 2rem;
+    background: var(--gold);
+    color: var(--charcoal);
+    border: none;
+    padding: 0.9rem 1.6rem;
+    font-family: var(--font-body);
+    font-size: 0.68rem;
+    font-weight: 500;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    cursor: pointer;
+    z-index: 200;
+    transition: transform 0.2s, background 0.2s, opacity 0.3s;
+    box-shadow: 0 4px 24px rgba(201,168,76,0.4);
+  }
+  .fab-reserve:hover { background: var(--gold-light); transform: translateY(-2px); }
+
+
+  /* ── REAL PHOTOS ── */
+  .gallery-img {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.6s ease;
+    display: block;
+  }
+  .gallery-cell:hover .gallery-img { transform: scale(1.06); }
+  .hero-food-img {
+    width: 320px;
+    height: 320px;
+    object-fit: cover;
+    border-radius: 50%;
+    animation: slowspin 30s linear infinite;
+    filter: drop-shadow(0 0 30px rgba(201,168,76,0.5));
+    border: 3px solid rgba(201,168,76,0.4);
+  }
+</style>
+</head>
+<body>
+
+<div class="cursor" id="cursor"></div>
+<div class="cursor-ring" id="cursorRing"></div>
+
+<!-- NAV -->
+<nav id="mainNav">
+  <a href="#" class="nav-logo">BREAK &amp; BRUNCH</a>
+  <ul class="nav-links">
+    <li><a href="#menu">Speisekarte</a></li>
+    <li><a href="#drinks">Getränke</a></li>
+    <li><a href="#gallery">Galerie</a></li>
+    <li><a href="#contact">Besuchen</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<section class="hero" style="padding:0;">
+  <div class="hero-left">
+    <div class="hero-eyebrow fade-up">Rüsselsheim am Main</div>
+    <h1 class="hero-title fade-up">
+      BREAK<br><span>&amp;</span><br>BRUNCH
+    </h1>
+    <p class="hero-subtitle fade-up">Waffeln, Snacks &amp; Drinks – wo jeder Moment zum Genuss wird.</p>
+    <div class="hero-ctas fade-up">
+      <a href="#menu" class="btn-primary">Zur Speisekarte</a>
+      <a href="#contact" class="btn-outline">Uns finden</a>
+      <button class="btn-reserve" onclick="openReservation()">Tisch reservieren ✦</button>
+    </div>
+  </div>
+  <div class="hero-right">
+    <div class="hero-img-bg"></div>
+    <div class="hero-waffle-visual">
+      <span class="orbit-tag">✦ Frische Zutaten</span>
+      <span class="orbit-tag">✦ Hausgemacht</span>
+      <span class="orbit-tag">✦ Heiße Waffeln</span>
+      <span class="orbit-tag">✦ Kaffeespezialitäten</span>
+      <div class="hero-circle">
+        <div class="hero-circle-inner">
+          <img src="assets/waffle.jpg" alt="Waffel" class="hero-food-img" />
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="diagonal-divider"></div>
+  <div class="hero-scroll">
+    <div class="scroll-line"></div>
+    Entdecken
+  </div>
+</section>
+
+<!-- TICKER -->
+<div class="ticker">
+  <div class="ticker-inner">
+    <span class="ticker-item"><span class="gold-dot"></span> Waffel Natur</span>
+    <span class="ticker-item"><span class="gold-dot"></span> Panini Hähnchenbrust</span>
+    <span class="ticker-item"><span class="gold-dot"></span> Aperol Spritz</span>
+    <span class="ticker-item"><span class="gold-dot"></span> Waffel Spaghetti</span>
+    <span class="ticker-item"><span class="gold-dot"></span> Toast Büffelmozzarella</span>
+    <span class="ticker-item"><span class="gold-dot"></span> Hugo</span>
+    <span class="ticker-item"><span class="gold-dot"></span> Waffel Erdbeere</span>
+    <span class="ticker-item"><span class="gold-dot"></span> Lillet</span>
+    <span class="ticker-item"><span class="gold-dot"></span> Waffel Natur</span>
+    <span class="ticker-item"><span class="gold-dot"></span> Panini Hähnchenbrust</span>
+    <span class="ticker-item"><span class="gold-dot"></span> Aperol Spritz</span>
+    <span class="ticker-item"><span class="gold-dot"></span> Waffel Spaghetti</span>
+    <span class="ticker-item"><span class="gold-dot"></span> Toast Büffelmozzarella</span>
+    <span class="ticker-item"><span class="gold-dot"></span> Hugo</span>
+    <span class="ticker-item"><span class="gold-dot"></span> Waffel Erdbeere</span>
+    <span class="ticker-item"><span class="gold-dot"></span> Lillet</span>
+  </div>
+</div>
+
+<!-- ABOUT STRIP -->
+<div class="about-strip">
+  <div class="about-strip-item">
+    <span class="strip-icon">🧇</span>
+    <span class="strip-text">Heiße Waffeln</span>
+  </div>
+  <span class="strip-separator">·</span>
+  <div class="about-strip-item">
+    <span class="strip-icon">🥪</span>
+    <span class="strip-text">Paninis &amp; Toast</span>
+  </div>
+  <span class="strip-separator">·</span>
+  <div class="about-strip-item">
+    <span class="strip-icon">🍹</span>
+    <span class="strip-text">Cocktails &amp; Aperitifs</span>
+  </div>
+  <span class="strip-separator">·</span>
+  <div class="about-strip-item">
+    <span class="strip-icon">🍰</span>
+    <span class="strip-text">Kuchen &amp; Torte</span>
+  </div>
+  <span class="strip-separator">·</span>
+  <div class="about-strip-item">
+    <span class="strip-icon">🍷</span>
+    <span class="strip-text">Wein &amp; Prosecco</span>
+  </div>
+</div>
+
+<!-- MENU -->
+<section class="menu-section" id="menu">
+  <div class="section-label">Speisekarte</div>
+  <h2 class="section-title">UNSERE <em>Köstlichkeiten</em></h2>
+  <p class="section-intro">Von klassischen Waffeln bis zu herzhaften Paninis – frisch zubereitet, voller Geschmack.</p>
+
+  <div class="menu-tabs">
+    <button class="menu-tab active" onclick="showTab('waffeln')">Waffeln &amp; Kuchen</button>
+    <button class="menu-tab" onclick="showTab('snacks')">Snacks &amp; Toast</button>
+    <button class="menu-tab" onclick="showTab('kaffee')">Warme Getränke</button>
+  </div>
+
+  <!-- WAFFELN TAB -->
+  <div class="menu-panel active" id="tab-waffeln">
+    <div class="menu-grid">
+      <div class="menu-section-header">— Waffeln —</div>
+
+      <div class="menu-item">
+        <div class="item-left">
+          <div class="item-name">Waffel Natur</div>
+          <div class="item-desc">Heiße Waffel mit Puderzucker</div>
+        </div>
+        <div class="item-price">4,90€</div>
+      </div>
+      <div class="menu-item">
+        <div class="item-left">
+          <div class="item-name">Waffel Zimt</div>
+          <div class="item-desc">Heiße Waffel mit Zimt &amp; Zucker</div>
+        </div>
+        <div class="item-price">4,90€</div>
+      </div>
+      <div class="menu-item">
+        <div class="item-left">
+          <div class="item-name">Waffel Schoko</div>
+          <div class="item-desc">Heiße Waffel mit Puderzucker und Schokosauce</div>
+        </div>
+        <div class="item-price">5,90€</div>
+      </div>
+      <div class="menu-item">
+        <div class="item-left">
+          <div class="item-name">Waffel Nutella</div>
+          <div class="item-desc">Mit Nutella</div>
+        </div>
+        <div class="item-price">5,90€</div>
+      </div>
+      <div class="menu-item">
+        <div class="item-left">
+          <div class="item-name">Waffel Classic</div>
+          <div class="item-desc">Heiße Waffel mit heißen Kirschen, Vanilleeis und Sahne</div>
+        </div>
+        <div class="item-price">8,90€</div>
+      </div>
+      <div class="menu-item">
+        <div class="item-left">
+          <div class="item-name">Waffel Spaghetti</div>
+          <div class="item-desc">Heiße Waffel mit Vanilleeis, Sahne, Erdbeersauce und weißen Schokoraspeln</div>
+        </div>
+        <div class="item-price">10,90€</div>
+      </div>
+      <div class="menu-item">
+        <div class="item-left">
+          <div class="item-name">Waffel Nuss</div>
+          <div class="item-desc">Heiße Waffel mit Vanille- und Nusseis, Sahne, Krokant, Nüssen, Haselnuss-Topping</div>
+        </div>
+        <div class="item-price">10,90€</div>
+      </div>
+      <div class="menu-item">
+        <div class="item-left">
+          <div class="item-name">Waffel Erdbeere</div>
+          <div class="item-desc">Heiße Waffel mit Vanille- und Erdbeereis, Sahne, frischen Erdbeeren (saisonal) und Erdbeersauce</div>
+        </div>
+        <div class="item-price">10,90€</div>
+      </div>
+      <div class="menu-item">
+        <div class="item-left">
+          <div class="item-name">Waffel Frische Früchte</div>
+          <div class="item-desc">Heiße Waffel mit Vanille- und Früchteeis, Sahne, frische Früchte und Erdbeersauce</div>
+        </div>
+        <div class="item-price">11,90€</div>
+      </div>
+
+      <div class="menu-section-header">— Kuchen &amp; Torte —</div>
+      <div class="menu-item" style="grid-column: 1 / -1;">
+        <div class="item-left">
+          <div class="item-name">Saisonales Kuchenangebot</div>
+          <div class="item-desc">Beachten Sie unser saisonales Angebot in unserer Kuchentheke</div>
+        </div>
+        <div class="item-price">4,90€</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- SNACKS TAB -->
+  <div class="menu-panel" id="tab-snacks">
+    <div class="menu-grid">
+      <div class="menu-section-header">— Paninis — Belegter &amp; knusprig gebackener Panini-Brote mit Sesam</div>
+      <div class="menu-item">
+        <div class="item-left">
+          <div class="item-name">Panini Salami</div>
+          <div class="item-desc">Mit Frischkäse, Salami, Tomaten, Käse und Rucola</div>
+        </div>
+        <div class="item-price">6,90€</div>
+      </div>
+      <div class="menu-item">
+        <div class="item-left">
+          <div class="item-name">Panini Schinken</div>
+          <div class="item-desc">Mit Frischkäse, Schinken, Tomaten, Käse und Rucola</div>
+        </div>
+        <div class="item-price">6,90€</div>
+      </div>
+      <div class="menu-item">
+        <div class="item-left">
+          <div class="item-name">Panini Tomate-Büffelmozzarella</div>
+          <div class="item-desc">Mit würzigem Pesto und Rucola</div>
+        </div>
+        <div class="item-price">8,90€</div>
+      </div>
+      <div class="menu-item">
+        <div class="item-left">
+          <div class="item-name">Panini Hähnchenbrust</div>
+          <div class="item-desc">Frisch gebratene Hähnchenbruststreifen mit Curry-Mango-Sauce, Tomaten, Käse und Rucola</div>
+        </div>
+        <div class="item-price">8,90€</div>
+      </div>
+      <div class="menu-item">
+        <div class="item-left">
+          <div class="item-name">Panini Sucuk</div>
+          <div class="item-desc">Mit Knoblauchwurst, Tomate, Frischkäse, Käse und Rucola</div>
+        </div>
+        <div class="item-price">8,90€</div>
+      </div>
+
+      <div class="menu-section-header">— Toast —</div>
+      <div class="menu-item">
+        <div class="item-left">
+          <div class="item-name">Toast Schinken</div>
+          <div class="item-desc">Mit Frischkäse, Tomate, Käse, Rucola</div>
+        </div>
+        <div class="item-price">5,90€</div>
+      </div>
+      <div class="menu-item">
+        <div class="item-left">
+          <div class="item-name">Toast Salami</div>
+          <div class="item-desc">Mit Frischkäse, Tomate, Käse, Rucola</div>
+        </div>
+        <div class="item-price">5,90€</div>
+      </div>
+      <div class="menu-item">
+        <div class="item-left">
+          <div class="item-name">Toast Sucuk</div>
+          <div class="item-desc">Mit Knoblauchwurst, Tomate, Frischkäse, Käse und Rucola</div>
+        </div>
+        <div class="item-price">6,90€</div>
+      </div>
+      <div class="menu-item">
+        <div class="item-left">
+          <div class="item-name">Toast Hähnchenbrust</div>
+          <div class="item-desc">Frisch gebratene Hähnchenbruststreifen mit Curry-Mango-Sauce, Tomate, Käse, Rucola</div>
+        </div>
+        <div class="item-price">6,90€</div>
+      </div>
+      <div class="menu-item">
+        <div class="item-left">
+          <div class="item-name">Toast Büffelmozzarella</div>
+          <div class="item-desc">Mit würzigem Pesto, Tomate, Rucola</div>
+        </div>
+        <div class="item-price">6,90€</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- WARM DRINKS TAB -->
+  <div class="menu-panel" id="tab-kaffee">
+    <div class="menu-grid">
+      <div class="menu-section-header">— Kaffeespezialitäten —</div>
+      <div class="menu-item">
+        <div class="item-left">
+          <div class="item-name">Kaffee Crème</div>
+          <div class="item-desc">Klassischer Filterkaffee</div>
+        </div>
+        <div class="item-price">3,00€</div>
+      </div>
+      <div class="menu-item">
+        <div class="item-left">
+          <div class="item-name">Kännchen Kaffee</div>
+          <div class="item-desc">Großes Kännchen Filterkaffee</div>
+        </div>
+        <div class="item-price">5,90€</div>
+      </div>
+      <div class="menu-item">
+        <div class="item-left">
+          <div class="item-name">Cappuccino</div>
+          <div class="item-desc">Klein</div>
+        </div>
+        <div class="item-price">3,50€</div>
+      </div>
+      <div class="menu-item">
+        <div class="item-left">
+          <div class="item-name">Cappuccino Groß</div>
+          <div class="item-desc">Mit doppeltem Espresso</div>
+        </div>
+        <div class="item-price">4,50€</div>
+      </div>
+      <div class="menu-item">
+        <div class="item-left">
+          <div class="item-name">Cappuccino mit Sahne</div>
+          <div class="item-desc">Mit Sahne verfeinert</div>
+        </div>
+        <div class="item-price">4,50€</div>
+      </div>
+      <div class="menu-item">
+        <div class="item-left">
+          <div class="item-name">Milchkaffee</div>
+          <div class="item-desc">Kaffee mit viel Milch</div>
+        </div>
+        <div class="item-price">3,90€</div>
+      </div>
+      <div class="menu-item">
+        <div class="item-left">
+          <div class="item-name">Latte Macchiato</div>
+          <div class="item-desc">Geschichteter Milchkaffee</div>
+        </div>
+        <div class="item-price">4,20€</div>
+      </div>
+      <div class="menu-item">
+        <div class="item-left">
+          <div class="item-name">Espresso</div>
+          <div class="item-desc">Kurz &amp; intensiv</div>
+        </div>
+        <div class="item-price">3,00€</div>
+      </div>
+      <div class="menu-item">
+        <div class="item-left">
+          <div class="item-name">Doppelter Espresso</div>
+          <div class="item-desc">Doppelt starker Espresso</div>
+        </div>
+        <div class="item-price">4,20€</div>
+      </div>
+      <div class="menu-item">
+        <div class="item-left">
+          <div class="item-name">Espresso Macchiato</div>
+          <div class="item-desc">Espresso mit einem Schuss Milchschaum</div>
+        </div>
+        <div class="item-price">3,30€</div>
+      </div>
+      <div class="menu-item">
+        <div class="item-left">
+          <div class="item-name">Doppelter Espresso Macchiato</div>
+          <div class="item-desc">Doppelter Espresso mit Milchschaum</div>
+        </div>
+        <div class="item-price">4,50€</div>
+      </div>
+      <div class="menu-item">
+        <div class="item-left">
+          <div class="item-name">Kakao</div>
+          <div class="item-desc">Heiße Schokolade</div>
+        </div>
+        <div class="item-price">3,50€</div>
+      </div>
+      <div class="menu-item">
+        <div class="item-left">
+          <div class="item-name">Kakao mit Sahne</div>
+          <div class="item-desc">Heiße Schokolade mit Sahne</div>
+        </div>
+        <div class="item-price">4,50€</div>
+      </div>
+      <div class="menu-section-header">— Aufschlag —</div>
+      <div class="menu-item" style="grid-column: 1 / -1;">
+        <div class="item-left">
+          <div class="item-name">Hafermilch / Lactosefreie Milch</div>
+          <div class="item-desc">Auf Wunsch als Alternative zur Kuhmilch</div>
+        </div>
+        <div class="item-price">+0,50€</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- DRINKS -->
+<section class="drinks-section" id="drinks">
+  <div class="section-label">Getränkekarte</div>
+  <h2 class="section-title">DRINKS &amp;<br><em>Genuss</em></h2>
+  <div class="drinks-grid">
+    <div class="drinks-category">
+      <div class="cat-title">APERITIF</div>
+      <div class="drink-row">
+        <span class="drink-name">Lillet</span>
+        <span class="drink-price">6,90€</span>
+      </div>
+      <div class="drink-row">
+        <span class="drink-name">Hugo</span>
+        <span class="drink-price">6,90€</span>
+      </div>
+      <div class="drink-row">
+        <span class="drink-name">Aperol</span>
+        <span class="drink-price">6,90€</span>
+      </div>
+      <div class="drink-row">
+        <span class="drink-name">B&amp;B Drink <span class="drink-detail">0,2L · Prosecco mit Zitroneneis &amp; Früchten</span></span>
+        <span class="drink-price">7,50€</span>
+      </div>
+    </div>
+
+    <div class="drinks-category">
+      <div class="cat-title">WEIN &amp; MEHR</div>
+      <div class="drink-row">
+        <span class="drink-name">Weißwein Trocken <span class="drink-detail">0,25L</span></span>
+        <span class="drink-price">6,90€</span>
+      </div>
+      <div class="drink-row">
+        <span class="drink-name">Roséwein Trocken <span class="drink-detail">0,25L</span></span>
+        <span class="drink-price">6,90€</span>
+      </div>
+      <div class="drink-row">
+        <span class="drink-name">Rotwein Trocken <span class="drink-detail">0,25L</span></span>
+        <span class="drink-price">6,90€</span>
+      </div>
+      <div class="drink-row">
+        <span class="drink-name">Weinschorle <span class="drink-detail">0,2L</span></span>
+        <span class="drink-price">5,90€</span>
+      </div>
+      <div class="drink-row">
+        <span class="drink-name">Prosecco <span class="drink-detail">0,1L</span></span>
+        <span class="drink-price">4,90€</span>
+      </div>
+    </div>
+
+    <div class="drinks-category">
+      <div class="cat-title">SCHNÄPSE</div>
+      <div class="drink-row">
+        <span class="drink-name">Ouzo <span class="drink-detail">2cl</span></span>
+        <span class="drink-price">3,00€</span>
+      </div>
+      <div class="drink-row">
+        <span class="drink-name">Amaretto <span class="drink-detail">2cl</span></span>
+        <span class="drink-price">3,00€</span>
+      </div>
+      <div class="drink-row">
+        <span class="drink-name">Baileys <span class="drink-detail">2cl</span></span>
+        <span class="drink-price">3,00€</span>
+      </div>
+      <div class="drink-row">
+        <span class="drink-name">Eierlikör <span class="drink-detail">2cl</span></span>
+        <span class="drink-price">3,00€</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FEATURE STRIP -->
+<div class="feature-strip">
+  <div class="feature-text">
+    <div class="section-label">Unser Versprechen</div>
+    <h2 class="section-title">FRISCH.<br><em>Täglich.</em></h2>
+    <p class="section-intro">Wir backen unsere Waffeln frisch auf Bestellung. Jedes Panini wird nach Wunsch belegt. Qualität ist keine Option – sie ist unser Standard.</p>
+    <a href="#contact" class="btn-outline" style="border-color:rgba(255,255,255,0.5);color:white;">Uns besuchen</a>
+  </div>
+  <div class="feature-stats">
+    <div class="stat-block">
+      <div class="stat-number">10+</div>
+      <div class="stat-label">Waffle Variationen</div>
+    </div>
+    <div class="stat-block">
+      <div class="stat-number">5</div>
+      <div class="stat-label">Panini Kreationen</div>
+    </div>
+    <div class="stat-block">
+      <div class="stat-number">5</div>
+      <div class="stat-label">Toast Sorten</div>
+    </div>
+    <div class="stat-block">
+      <div class="stat-number">15+</div>
+      <div class="stat-label">Getränke</div>
+    </div>
+  </div>
+</div>
+
+
+<!-- GALLERY -->
+<section class="gallery-section" id="gallery">
+  <div class="gallery-header">
+    <div>
+      <div class="section-label">Einblicke</div>
+      <h2 class="section-title">UNSERE <em>Welt</em></h2>
+    </div>
+    <a href="https://www.facebook.com" class="btn-outline">Facebook ansehen ↗</a>
+  </div>
+  <div class="gallery-grid">
+    <div class="gallery-cell">
+      <img src="assets/waffle.jpg" alt="Signature Waffeln" class="gallery-img" />
+      <div class="gallery-overlay"><span class="gallery-label">Signature Waffeln</span></div>
+    </div>
+    <div class="gallery-cell">
+      <img src="assets/crepe.jpg" alt="Crêpes" class="gallery-img" />
+      <div class="gallery-overlay"><span class="gallery-label">Frische Crêpes</span></div>
+    </div>
+    <div class="gallery-cell">
+      <img src="assets/cakes.jpg" alt="Kuchen &amp; Torte" class="gallery-img" />
+      <div class="gallery-overlay"><span class="gallery-label">Kuchen &amp; Torte</span></div>
+    </div>
+    <div class="gallery-cell">
+      <img src="assets/fruitswaffle.jpg" alt="Waffeln mit Früchten" class="gallery-img" />
+      <div class="gallery-overlay"><span class="gallery-label">Waffeln mit Früchten</span></div>
+    </div>
+    <div class="gallery-cell">
+      <img src="assets/coffeecake.jpg" alt="Kaffee &amp; Kuchen" class="gallery-img" />
+      <div class="gallery-overlay"><span class="gallery-label">Kaffee &amp; Kuchen</span></div>
+    </div>
+  </div>
+  <p style="font-size:0.75rem;color:var(--text-muted);margin-top:1.5rem;font-style:italic;">
+    ✦ Aktuelle Fotos auf unserem Facebook-Profil
+  </p>
+</section>
+
+<!-- CONTACT -->
+<div class="contact-section" id="contact">
+  <div class="contact-left">
+    <div class="section-label">Besuchen Sie uns</div>
+    <h2 class="section-title">WO <em>wir sind</em></h2>
+
+    <div class="contact-item">
+      <div class="contact-icon">📍</div>
+      <div>
+        <div class="contact-info-title">Adresse</div>
+        <div class="contact-info-detail">Heinrich-Walter-Straße 4<br>65428 Rüsselsheim am Main</div>
+      </div>
+    </div>
+    <div class="contact-item">
+      <div class="contact-icon">🕐</div>
+      <div>
+        <div class="contact-info-title">Öffnungszeiten</div>
+        <div class="contact-info-detail">Täglich geöffnet</div>
+      </div>
+    </div>
+    <div class="contact-item">
+      <div class="contact-icon">📘</div>
+      <div>
+        <div class="contact-info-title">Social Media</div>
+        <div class="contact-info-detail">Folgen Sie uns auf Facebook für aktuelle Angebote &amp; Fotos</div>
+      </div>
+    </div>
+
+    <a href="https://www.facebook.com" class="facebook-link">
+      📘 Uns auf Facebook folgen
+    </a>
+
+   <div class="map-embed">
+      <iframe
+        src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d1119.4!2d8.4470906!3d49.9711901!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x47bd9e912a3ffc5d%3A0x23b45336e03f00c8!2sBreak%20%26%20Brunch!5e0!3m2!1sde!2sde!4v1"
+        width="100%"
+        height="300"
+        style="border:0; filter: grayscale(30%) contrast(1.1);"
+        allowfullscreen=""
+        loading="lazy"
+        referrerpolicy="no-referrer-when-downgrade">
+      </iframe>
+      <a href="https://www.google.com/maps/place/Break+%26+Brunch/@49.9711901,8.4470906,560m/data=!3m2!1e3!4b1!4m6!3m5!1s0x47bd9e912a3ffc5d:0x23b45336e03f00c8!8m2!3d49.9711901!4d8.4470906!16s%2Fg%2F11cr_mhkbn" target="_blank" class="map-directions">
+        📍 Route planen in Google Maps ↗
+      </a>
+    </div>
+  </div>
+
+  <div class="contact-right">
+    <div class="section-label">Öffnungszeiten</div>
+    <h3 style="font-family:var(--font-display);font-size:2.5rem;letter-spacing:2px;color:var(--warm-white);margin-bottom:2rem;">WANN WIR<br><span style="color:var(--gold);">FÜR SIE DA SIND</span></h3>
+    <div class="hours-grid">
+      <div class="hour-row">
+        <span class="hour-day">Montag</span>
+        <span class="hour-time">09:00 – 20:00</span>
+      </div>
+      <div class="hour-row">
+        <span class="hour-day">Dienstag</span>
+        <span class="hour-time">09:00 – 20:00</span>
+      </div>
+      <div class="hour-row">
+        <span class="hour-day">Mittwoch</span>
+        <span class="hour-time">09:00 – 20:00</span>
+      </div>
+      <div class="hour-row">
+        <span class="hour-day">Donnerstag</span>
+        <span class="hour-time">09:00 – 20:00</span>
+      </div>
+      <div class="hour-row">
+        <span class="hour-day">Freitag</span>
+        <span class="hour-time">09:00 – 20:00</span>
+      </div>
+      <div class="hour-row">
+        <span class="hour-day">Samstag</span>
+        <span class="hour-time">09:00 – 20:00</span>
+      </div>
+      <div class="hour-row">
+        <span class="hour-day">Sonntag</span>
+        <span class="hour-time">09:00 – 20:00</span>
+      </div>
+    </div>
+    <p style="font-size:0.72rem;color:var(--text-muted);margin-top:1.5rem;font-style:italic;">* Täglich geöffnet – 7 Tage die Woche für Sie da!</p>
+  </div>
+</div>
+
+<!-- FOOTER -->
+<footer>
+  <div>
+    <div class="footer-logo">BREAK &amp; BRUNCH</div>
+    <div class="footer-tagline">Eiscafé &amp; Frühstückslokal – Rüsselsheim am Main</div>
+  </div>
+  <div class="footer-copy">© 2025 Break &amp; Brunch · Rüsselsheim · Alle Rechte vorbehalten</div>
+</footer>
+
+<!-- RESERVATION MODAL -->
+<div class="modal-backdrop" id="reservationModal">
+  <div class="modal">
+    <button class="modal-close" onclick="closeReservation()">✕</button>
+    <span class="modal-eyebrow">Break &amp; Brunch · Rüsselsheim</span>
+    <div class="modal-heading">TISCH<br><span>RESERVIEREN</span></div>
+
+    <div id="reservationForm">
+      <div class="form-row">
+        <div class="form-group">
+          <label>Vorname *</label>
+          <input type="text" id="fname" placeholder="Max" />
+        </div>
+        <div class="form-group">
+          <label>Nachname *</label>
+          <input type="text" id="lname" placeholder="Mustermann" />
+        </div>
+      </div>
+      <div class="form-row">
+        <div class="form-group">
+          <label>Datum *</label>
+          <input type="date" id="resDate" />
+        </div>
+        <div class="form-group">
+          <label>Uhrzeit *</label>
+          <select id="resTime">
+            <option value="">Bitte wählen</option>
+            <option>09:00</option><option>09:30</option>
+            <option>10:00</option><option>10:30</option>
+            <option>11:00</option><option>11:30</option>
+            <option>12:00</option><option>12:30</option>
+            <option>13:00</option><option>13:30</option>
+            <option>14:00</option><option>14:30</option>
+            <option>15:00</option><option>15:30</option>
+            <option>16:00</option><option>16:30</option>
+            <option>17:00</option><option>17:30</option>
+            <option>18:00</option><option>18:30</option>
+            <option>19:00</option><option>19:30</option>
+          </select>
+        </div>
+      </div>
+      <div class="form-row">
+        <div class="form-group">
+          <label>Anzahl Personen *</label>
+          <select id="resGuests">
+            <option>1 Person</option>
+            <option selected>2 Personen</option>
+            <option>3 Personen</option>
+            <option>4 Personen</option>
+            <option>5 Personen</option>
+            <option>6 Personen</option>
+            <option>7 Personen</option>
+            <option>8+ Personen</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label>Telefon *</label>
+          <input type="tel" id="resPhone" placeholder="+49 6142 123456" />
+        </div>
+      </div>
+      <div class="form-divider"></div>
+      <div class="form-group">
+        <label>Besondere Wünsche (optional)</label>
+        <textarea id="resNotes" placeholder="Allergien, Anlass, Sitzwünsche..."></textarea>
+      </div>
+      <button class="form-submit" onclick="submitReservation()">Jetzt reservieren ✦</button>
+      <p class="form-note">* Pflichtfelder &nbsp;·&nbsp; Heinrich-Walter-Straße 4, 65428 Rüsselsheim am Main<br>Wir bestätigen Ihre Reservierung telefonisch oder per Nachricht.</p>
+    </div>
+
+    <div class="modal-success" id="reservationSuccess">
+      <div class="success-icon">✦</div>
+      <div class="success-title">VIELEN DANK!</div>
+      <p class="success-msg">Ihre Reservierungsanfrage ist eingegangen.<br>Wir freuen uns auf Ihren Besuch!<br><br><strong style="color:var(--gold);">Break &amp; Brunch</strong><br>Heinrich-Walter-Straße 4 · 65428 Rüsselsheim</p>
+      <button class="success-close-btn" onclick="closeReservation()">Schließen</button>
+    </div>
+  </div>
+</div>
+
+<!-- FLOATING RESERVE BUTTON -->
+<button class="fab-reserve" id="fabBtn" onclick="openReservation()">✦ Tisch reservieren</button>
+
+<script>
+// Custom cursor
+const cursor = document.getElementById('cursor');
+const ring = document.getElementById('cursorRing');
+let mx = 0, my = 0, rx = 0, ry = 0;
+document.addEventListener('mousemove', e => {
+  mx = e.clientX; my = e.clientY;
+  cursor.style.transform = `translate(${mx - 6}px, ${my - 6}px)`;
+});
+function animRing() {
+  rx += (mx - rx) * 0.12;
+  ry += (my - ry) * 0.12;
+  ring.style.transform = `translate(${rx - 18}px, ${ry - 18}px)`;
+  requestAnimationFrame(animRing);
+}
+animRing();
+
+// Nav scroll
+const nav = document.getElementById('mainNav');
+window.addEventListener('scroll', () => {
+  nav.classList.toggle('scrolled', window.scrollY > 50);
+});
+
+// Menu tabs
+function showTab(id) {
+  document.querySelectorAll('.menu-tab').forEach((t, i) => {
+    t.classList.toggle('active', (i === 0 && id === 'waffeln') || (i === 1 && id === 'snacks'));
+  });
+  document.querySelectorAll('.menu-panel').forEach(p => p.classList.remove('active'));
+  document.getElementById('tab-' + id).classList.add('active');
+}
+
+// Highlight today
+const days = ['Sonntag','Montag','Dienstag','Mittwoch','Donnerstag','Freitag','Samstag'];
+const today = days[new Date().getDay()];
+document.querySelectorAll('.hour-day').forEach(el => {
+  if (el.textContent.trim() === today) {
+    el.closest('.hour-row').classList.add('today');
+    el.textContent = today + ' ✦';
+  }
+});
+
+// Intersection observer for fade-in on scroll
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach(e => {
+    if (e.isIntersecting) {
+      e.target.style.opacity = '1';
+      e.target.style.transform = 'translateY(0)';
+    }
+  });
+}, { threshold: 0.15 });
+
+document.querySelectorAll('.menu-item, .drinks-category, .gallery-cell, .stat-block, .contact-item').forEach(el => {
+  el.style.opacity = '0';
+  el.style.transform = 'translateY(20px)';
+  el.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
+  observer.observe(el);
+});
+
+function openReservation() {
+  const modal = document.getElementById('reservationModal');
+  modal.classList.add('open');
+  document.body.style.overflow = 'hidden';
+  const today = new Date().toISOString().split('T')[0];
+  document.getElementById('resDate').min = today;
+  if (!document.getElementById('resDate').value) {
+    document.getElementById('resDate').value = today;
+  }
+}
+function closeReservation() {
+  document.getElementById('reservationModal').classList.remove('open');
+  document.body.style.overflow = '';
+  setTimeout(() => {
+    document.getElementById('reservationForm').style.display = '';
+    document.getElementById('reservationSuccess').classList.remove('show');
+  }, 350);
+}
+function submitReservation() {
+  const fname = document.getElementById('fname').value.trim();
+  const lname = document.getElementById('lname').value.trim();
+  const date = document.getElementById('resDate').value;
+  const time = document.getElementById('resTime').value;
+  const phone = document.getElementById('resPhone').value.trim();
+  if (!fname || !lname || !date || !time || !phone) {
+    const fields = document.querySelectorAll('#reservationForm input, #reservationForm select');
+    fields.forEach(f => {
+      if (!f.value.trim()) f.style.borderColor = 'var(--rust-light)';
+      else f.style.borderColor = '';
+    });
+    return;
+  }
+  document.getElementById('reservationForm').style.display = 'none';
+  document.getElementById('reservationSuccess').classList.add('show');
+}
+document.getElementById('reservationModal').addEventListener('click', function(e) {
+  if (e.target === this) closeReservation();
+});
+window.addEventListener('scroll', () => {
+  const fab = document.getElementById('fabBtn');
+  if (!fab) return;
+  const scrolled = window.scrollY + window.innerHeight;
+  const total = document.body.scrollHeight;
+  fab.style.opacity = scrolled > total - 200 ? '0' : '1';
+  fab.style.pointerEvents = scrolled > total - 200 ? 'none' : 'auto';
+});
+</script>
+</body>
+</html>
